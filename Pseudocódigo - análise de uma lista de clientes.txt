@@ -1,0 +1,51 @@
+ALGORITMO Analise_Dados_Clientes
+
+    // Entrada: Lista de clientes (Nome, Total Compras)
+    // Usaremos uma lista de pares para representar cada cliente
+    LISTA_CLIENTES = [("Ana", 150.00), ("Beto", 220.50), ("Carla", 80.00), ("Davi", 300.00), ("Eva", 190.00)]
+
+    // Variáveis para cálculo da média
+    SOMA_COMPRAS_TOTAIS = 0.0
+    CONTADOR_CLIENTES = 0
+
+    // Lista para armazenar clientes com alta compra
+    CLIENTES_GASTO_ALTO = []
+
+    // Processamento: Percorrer a lista de clientes
+    PARA CADA CLIENTE EM LISTA_CLIENTES FAÇA
+        // Acessa o nome do cliente (primeiro elemento do par)
+        NOME_CLIENTE = CLIENTE[0]
+        // Acessa o total de compras (segundo elemento do par)
+        TOTAL_COMPRA = CLIENTE[1]
+
+        // 1. Calcular a soma total e contar clientes para a média
+        SOMA_COMPRAS_TOTAIS = SOMA_COMPRAS_TOTAIS + TOTAL_COMPRA
+        CONTADOR_CLIENTES = CONTADOR_CLIENTES + 1
+
+        // 2. Identificar clientes que gastaram mais de R$ 200,00
+        SE TOTAL_COMPRA > 200.00 ENTÃO
+            ADICIONAR NOME_CLIENTE A CLIENTES_GASTO_ALTO // Adiciona o nome à lista
+        FIM_SE
+    FIM_PARA
+
+    // Calcular a média final após percorrer todos os clientes
+    SE CONTADOR_CLIENTES > 0 ENTÃO
+        MEDIA_COMPRAS = SOMA_COMPRAS_TOTAIS / CONTADOR_CLIENTES
+    SENÃO
+        MEDIA_COMPRAS = 0 // Evitar divisão por zero se a lista estiver vazia
+    FIM_SE
+
+    // Saídas
+    ESCREVER "Média do Total de Compras de Todos os Clientes: R$ " + MEDIA_COMPRAS
+    ESCREVER "---"
+    ESCREVER "Clientes que gastaram mais de R$ 200,00:"
+
+    SE TAMANHO(CLIENTES_GASTO_ALTO) > 0 ENTÃO
+        PARA CADA NOME EM CLIENTES_GASTO_ALTO FAÇA
+            ESCREVER "- " + NOME
+        FIM_PARA
+    SENÃO
+        ESCREVER "Nenhum cliente gastou mais de R$ 200,00 neste período."
+    FIM_SE
+
+FIM_ALGORITMO
