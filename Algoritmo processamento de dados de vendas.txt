@@ -1,0 +1,80 @@
+ALGORITMO Processamento_Dados_Vendas
+
+    // 1. Definição da Função Processar_Vendas
+    // Esta função recebe uma lista de vendas e calcula várias estatísticas
+    FUNÇÃO Processar_Vendas (lista_de_vendas)
+
+        // Variáveis locais para os cálculos dentro da função
+        SOMA_TOTAL = 0.0
+        MAIOR_VENDA = 0.0      // Inicializa com um valor que será facilmente superado
+        MENOR_VENDA = 99999999.99 // Inicializa com um valor alto para ser facilmente superado para baixo
+        CONTADOR_VENDAS = 0
+
+        // Verificar se a lista de vendas não está vazia para evitar erros
+        SE TAMANHO(lista_de_vendas) > 0 ENTÃO
+            // A inicialização de MAIOR_VENDA e MENOR_VENDA pode ser feita com o primeiro elemento da lista
+            // Isso garante que funcionará mesmo com números negativos ou se todos os números forem muito pequenos/grandes
+            MAIOR_VENDA = lista_de_vendas[0]
+            MENOR_VENDA = lista_de_vendas[0]
+        FIM_SE
+
+        // Percorrer cada valor na lista de vendas
+        PARA CADA VENDA EM lista_de_vendas FAÇA
+            SOMA_TOTAL = SOMA_TOTAL + VENDA
+            CONTADOR_VENDAS = CONTADOR_VENDAS + 1
+
+            // Verifica se a venda atual é a maior encontrada até agora
+            SE VENDA > MAIOR_VENDA ENTÃO
+                MAIOR_VENDA = VENDA
+            FIM_SE
+
+            // Verifica se a venda atual é a menor encontrada até agora
+            SE VENDA < MENOR_VENDA ENTÃO
+                MENOR_VENDA = VENDA
+            FIM_SE
+        FIM_PARA
+
+        // Calcular a média, evitando divisão por zero
+        SE CONTADOR_VENDAS > 0 ENTÃO
+            MEDIA_VENDAS = SOMA_TOTAL / CONTADOR_VENDAS
+        SENÃO
+            MEDIA_VENDAS = 0.0 // Se não há vendas, a média é 0
+        FIM_SE
+
+        // Retorna todos os resultados como uma coleção (simulando um dicionário ou lista de resultados)
+        RETORNAR {
+            "Total": SOMA_TOTAL,
+            "Media": MEDIA_VENDAS,
+            "Maior": MAIOR_VENDA,
+            "Menor": MENOR_VENDA
+        }
+
+    FIM_FUNCAO
+
+    // 2. Algoritmo Principal: Chamando a Função e Exibindo Resultados
+
+    // Dados de exemplo
+    MINHAS_VENDAS = [150.00, 220.50, 80.00, 300.00, 190.00, 450.00, 120.00]
+
+    // Chama a função e armazena os resultados retornados
+    RESULTADOS_DA_ANALISE = Processar_Vendas(MINHAS_VENDAS)
+
+    // Exibe os resultados
+    ESCREVER "--- Análise de Vendas ---"
+    ESCREVER "Total de Vendas: R$ " + RESULTADOS_DA_ANALISE.Total
+    ESCREVER "Média de Vendas: R$ " + RESULTADOS_DA_ANALISE.Media
+    ESCREVER "Maior Venda: R$ " + RESULTADOS_DA_ANALISE.Maior
+    ESCREVER "Menor Venda: R$ " + RESULTADOS_DA_ANALISE.Menor
+    ESCREVER "------------------------"
+
+    // Teste com lista vazia para verificar a robustez
+    // MINHAS_VENDAS_VAZIA = []
+    // RESULTADOS_ANALISE_VAZIA = Processar_Vendas(MINHAS_VENDAS_VAZIA)
+    // ESCREVER "\n--- Análise de Vendas (Lista Vazia) ---"
+    // ESCREVER "Total de Vendas: R$ " + RESULTADOS_ANALISE_VAZIA.Total
+    // ESCREVER "Média de Vendas: R$ " + RESULTADOS_ANALISE_VAZIA.Media
+    // ESCREVER "Maior Venda: R$ " + RESULTADOS_ANALISE_VAZIA.Maior
+    // ESCREVER "Menor Venda: R$ " + RESULTADOS_ANALISE_VAZIA.Menor
+    // ESCREVER "------------------------------------"
+
+FIM_ALGORITMO
